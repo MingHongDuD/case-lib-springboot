@@ -9,22 +9,29 @@ import org.springframework.context.annotation.Primary;
 import javax.sql.DataSource;
 
 /**
- * @author ...
+ * 多数据源配置类
+ *
+ * @author damon du/minghongdud
  */
 @Configuration
 public class DataSourceConfig {
 
-    @Bean(name = "primaryDataSource")
+    /**
+     * 主数据源（用于 Spring Data JPA, Postgres）
+     */
     @Primary
+    @Bean(name = "primaryDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.primary")
     public DataSource primaryDataSource() {
         return DataSourceBuilder.create().build();
     }
 
+    /**
+     * 第二数据源（用于 MyBatis, MySQL）
+     */
     @Bean(name = "secondaryDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.secondary")
     public DataSource secondaryDataSource() {
         return DataSourceBuilder.create().build();
     }
-
 }
