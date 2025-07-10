@@ -1,4 +1,4 @@
-package com.damon.springbootcase.config;
+package com.damon.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
     /**
-     * 主数据源（用于 Spring Data JPA, Postgres）
+     * 主数据源
      */
     @Primary
     @Bean(name = "primaryDataSource")
@@ -27,7 +27,7 @@ public class DataSourceConfig {
     }
 
     /**
-     * 第二数据源（用于 MyBatis, MySQL）
+     * 第二数据源
      */
     @Bean(name = "secondaryDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.secondary")

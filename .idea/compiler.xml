@@ -2,20 +2,29 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="lib-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="case-lib-main" target="21" />
+      <module name="case-lib-springboot-admin" target="21" />
+      <module name="case-lib-springboot-main" target="21" />
       <module name="case-lib-springboot-websocket" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="case-lib-main" options="-parameters" />
       <module name="case-lib-springboot" options="" />
+      <module name="case-lib-springboot-admin" options="-parameters" />
+      <module name="case-lib-springboot-main" options="-parameters" />
       <module name="case-lib-springboot-websocket" options="-parameters" />
+      <module name="lib-core" options="-parameters" />
     </option>
   </component>
 </project>

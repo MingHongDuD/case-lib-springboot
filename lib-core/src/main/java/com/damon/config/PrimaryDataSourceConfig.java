@@ -1,8 +1,7 @@
-package com.damon.springbootcase.config;
+package com.damon.config;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +13,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 /**
  * PrimaryDataSource 配置类（Spring Data JPA 的配置）
@@ -27,53 +25,42 @@ import java.util.Map;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryPrimary",
         transactionManagerRef = "primaryTransactionManager",
-        basePackages = "com.damon.springbootcase.repository.primary"
+        basePackages = "com.damon.repository.primary"
 )
 public class PrimaryDataSourceConfig {
 
     private final JpaProperties jpaProperties;
-
     private final DataSource primaryDataSource;
 
-    @Value("${spring.jpa.hibernate.primary-dialect}")
-    private String primaryDialect;
-
-    public PrimaryDataSourceConfig(JpaProperties jpaProperties, @Qualifier("primaryDataSource") DataSource primaryDataSource) {
+    public PrimaryDataSourceConfig(JpaProperties jpaProperties,
+                                   @Qualifier("primaryDataSource") DataSource primaryDataSource) {
         this.jpaProperties = jpaProperties;
         this.primaryDataSource = primaryDataSource;
     }
 
     @Bean("entityManagerMasterPrimary")
     public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
-        return entityManagerFactoryPrimary(builder).getObject().createEntityManager();
+        return Objects.requireNonNull(entityManagerFactoryPrimary(builder).getObject()).createEntityManager();
     }
 
     /**
-     * 配置 JPA 的 EntityManagerFactory
+     * 配置主数据源的 EntityManagerFactory
      */
     @Bean(name = "entityManagerFactoryPrimary")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary(EntityManagerFactoryBuilder builder) {
         return builder.dataSource(primaryDataSource)
-                .properties(getVendorProperties())
+                .properties(jpaProperties.getProperties())
                 .packages("com.damon.springbootcase.entity.primary")
                 .persistenceUnit("primaryUnit")
                 .build();
     }
 
-    private Map<String, String> getVendorProperties() {
-        Map<String, String> map = new HashMap<>();
-        map.put("hibernate.dialect", primaryDialect);
-        jpaProperties.setProperties(map);
-        return jpaProperties.getProperties();
-    }
-
     /**
-     * 配置 JPA 的事务管理器
-     * 添加空检查以避免 NullPointerException
+     * 配置主数据源的事务管理器
      */
-    @Bean(name = "transactionManager")
+    @Bean(name = "transactionManagerPrimary")
     public PlatformTransactionManager transactionManager(EntityManagerFactoryBuilder builder) {
-        return new JpaTransactionManager(entityManagerFactoryPrimary(builder).getObject());
+        return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactoryPrimary(builder).getObject()));
     }
 
 

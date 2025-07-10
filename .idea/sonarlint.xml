@@ -3,6 +3,7 @@
   <component name="SonarLintProjectSettings">
     <option name="moduleMapping">
       <map>
+        <entry key="case-lib-springboot-main" value="untitled" />
         <entry key="case-lib-springboot-websocket" value="springboot-websocket" />
       </map>
     </option>

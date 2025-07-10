@@ -1,14 +1,16 @@
-package com.damon.springbootcase;
+package com.damon;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author ...
+ * 启动类
+ *
+ * @author damon du/minghongdud
  */
 @SpringBootApplication
-public class MainApplication {
+public class CoreApplication {
     public static void main(String[] args) {
-        SpringApplication.run(MainApplication.class);
+        SpringApplication.run(CoreApplication.class);
     }
 }
