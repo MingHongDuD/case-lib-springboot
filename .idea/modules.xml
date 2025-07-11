@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/case-lib-springboot.iml" filepath="$PROJECT_DIR$/.idea/case-lib-springboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-core.iml" filepath="$PROJECT_DIR$/lib-core.iml" />
     </modules>
   </component>
 </project>

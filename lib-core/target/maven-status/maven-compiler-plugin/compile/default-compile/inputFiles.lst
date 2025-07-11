@@ -1,1 +1,7 @@
 /Users/ming.hong.du.d/Documents/[]_project/[project]_demo/case-lib-springboot/lib-core/src/main/java/com/damon/CoreApplication.java
+/Users/ming.hong.du.d/Documents/[]_project/[project]_demo/case-lib-springboot/lib-core/src/main/java/com/damon/config/DataSourceConfig.java
+/Users/ming.hong.du.d/Documents/[]_project/[project]_demo/case-lib-springboot/lib-core/src/main/java/com/damon/config/PrimaryDataSourceConfig.java
+/Users/ming.hong.du.d/Documents/[]_project/[project]_demo/case-lib-springboot/lib-core/src/main/java/com/damon/config/SecondaryDataSourceConfig.java
+/Users/ming.hong.du.d/Documents/[]_project/[project]_demo/case-lib-springboot/lib-core/src/main/java/com/damon/entity/primary/UserEntity.java
+/Users/ming.hong.du.d/Documents/[]_project/[project]_demo/case-lib-springboot/lib-core/src/main/java/com/damon/mapper/OrderMapper.java
+/Users/ming.hong.du.d/Documents/[]_project/[project]_demo/case-lib-springboot/lib-core/src/main/java/com/damon/repository/primary/UserRepository.java

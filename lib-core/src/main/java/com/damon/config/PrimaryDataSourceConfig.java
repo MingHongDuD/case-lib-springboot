@@ -50,7 +50,7 @@ public class PrimaryDataSourceConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary(EntityManagerFactoryBuilder builder) {
         return builder.dataSource(primaryDataSource)
                 .properties(jpaProperties.getProperties())
-                .packages("com.damon.springbootcase.entity.primary")
+                .packages("com.damon.entity.primary")
                 .persistenceUnit("primaryUnit")
                 .build();
     }
