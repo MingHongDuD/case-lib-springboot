@@ -1,0 +1,15 @@
+com\damon\config\PrimaryDataSourceConfig.class
+com\damon\CoreApplication.class
+com\damon\exception\CustomException.class
+com\damon\config\MybatisPlusConfig.class
+com\damon\exception\MyExceptionHandler.class
+com\damon\repository\primary\UserRepository.class
+com\damon\config\DataSourceConfig.class
+com\damon\mapper\secondary\OrderMapper.class
+com\damon\config\SecondaryDataSourceConfig.class
+com\damon\entity\secondary\OrderEntity.class
+com\damon\controller\OrderController.class
+com\damon\controller\UserController.class
+com\damon\entity\primary\UserEntity.class
+com\damon\controller\UserApi.class
+com\damon\controller\OrderApi.class

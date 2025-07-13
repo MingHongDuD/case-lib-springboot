@@ -15,6 +15,8 @@
       <module name="case-lib-springboot-admin" target="21" />
       <module name="case-lib-springboot-main" target="21" />
       <module name="case-lib-springboot-websocket" target="21" />
+      <module name="lib-admin-server" target="21" />
+      <module name="lib-core (1)" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -24,6 +26,7 @@
       <module name="case-lib-springboot-admin" options="-parameters" />
       <module name="case-lib-springboot-main" options="-parameters" />
       <module name="case-lib-springboot-websocket" options="-parameters" />
+      <module name="lib-admin-server" options="" />
       <module name="lib-core" options="-parameters" />
     </option>
   </component>

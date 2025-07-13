@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  * @author damon du/minghongdud
  */
 @Configuration
-@MapperScan(basePackages = "com.damon.dao.secondary")
+@MapperScan(basePackages = "com.damon.mapper.secondary")
 public class SecondaryDataSourceConfig {
 
     /**

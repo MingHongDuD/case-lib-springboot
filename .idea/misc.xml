@@ -9,9 +9,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/case-lib-main/pom.xml" />
-        <option value="$PROJECT_DIR$/case-lib-springboot-admin/pom.xml" />
-        <option value="$PROJECT_DIR$/case-lib-springboot-main/pom.xml" />
+        <option value="$PROJECT_DIR$/lib-admin-server/pom.xml" />
       </set>
     </option>
   </component>

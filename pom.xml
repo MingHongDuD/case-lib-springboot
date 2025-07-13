@@ -18,12 +18,13 @@
 
     <modules>
         <module>lib-core</module>
+        <module>lib-admin-server</module>
     </modules>
 
     <properties>
         <java.version>21</java.version>
         <rocketmq-client-java-version>5.0.8</rocketmq-client-java-version>
-
+        <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
         <druid-version>1.2.23</druid-version>
         <mybatis-plus-boot-starter-version>3.5.9</mybatis-plus-boot-starter-version>
         <mybatis-version>3.5.17</mybatis-version>
@@ -54,18 +55,14 @@
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis-plus-generator-version}</version>
             </dependency>
-            <!-- 模板引擎 -->
+            <!-- Spring Boot Admin-->
             <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity-engine-core</artifactId>
-                <version>2.0</version>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
-            <!--热部署工具-->
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-devtools</artifactId>-->
-            <!--                <scope>runtime</scope>-->
-            <!--            </dependency>-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
@@ -77,7 +74,14 @@
                 <version>42.7.4</version>
                 <scope>runtime</scope>
             </dependency>
-
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
