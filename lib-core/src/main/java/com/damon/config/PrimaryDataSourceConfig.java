@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 import java.util.Objects;
 
 /**
- * PrimaryDataSource 配置类（Spring Data JPA 的配置）
+ * PrimaryDataSource 配置类
  *
  * @author damon du/minghongdud
  */
@@ -38,7 +38,7 @@ public class PrimaryDataSourceConfig {
         this.primaryDataSource = primaryDataSource;
     }
 
-    @Bean("entityManagerMasterPrimary")
+    @Bean("entityManagerPrimary")
     public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
         return Objects.requireNonNull(entityManagerFactoryPrimary(builder).getObject()).createEntityManager();
     }
@@ -58,10 +58,9 @@ public class PrimaryDataSourceConfig {
     /**
      * 配置主数据源的事务管理器
      */
-    @Bean(name = "transactionManagerPrimary")
+    @Bean(name = "primaryTransactionManager")
     public PlatformTransactionManager transactionManager(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactoryPrimary(builder).getObject()));
     }
-
 
 }

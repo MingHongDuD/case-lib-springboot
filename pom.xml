@@ -11,10 +11,10 @@
     </parent>
 
     <groupId>com.damon</groupId>
-    <artifactId>case-lib-springboot</artifactId>
+    <artifactId>lib-springboot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>case-lib-springboot</name>
+    <name>lib-springboot</name>
 
     <modules>
         <module>lib-core</module>
@@ -26,7 +26,7 @@
         <rocketmq-client-java-version>5.0.8</rocketmq-client-java-version>
         <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
         <druid-version>1.2.23</druid-version>
-        <mybatis-plus-boot-starter-version>3.5.9</mybatis-plus-boot-starter-version>
+        <mybatis-plus-boot-starter-version>3.5.7</mybatis-plus-boot-starter-version>
         <mybatis-version>3.5.17</mybatis-version>
         <mybatis-plus-generator-version>3.4.0</mybatis-plus-generator-version>
         <maven.compiler.source>21</maven.compiler.source>
@@ -49,20 +49,6 @@
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis-version}</version>
             </dependency>
-            <!-- 代码生成器 -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-generator</artifactId>
-                <version>${mybatis-plus-generator-version}</version>
-            </dependency>
-            <!-- Spring Boot Admin-->
-            <dependency>
-                <groupId>de.codecentric</groupId>
-                <artifactId>spring-boot-admin-dependencies</artifactId>
-                <version>${spring-boot-admin.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
@@ -73,6 +59,11 @@
                 <artifactId>postgresql</artifactId>
                 <version>42.7.4</version>
                 <scope>runtime</scope>
+            </dependency>
+            <!--springboot security-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
             </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>

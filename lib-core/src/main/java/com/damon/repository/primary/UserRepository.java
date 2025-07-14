@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * User 的 JPA 的数据库访问层
+ * 用户数据库访问层
  *
  * @author damon du/minghongdud
  */

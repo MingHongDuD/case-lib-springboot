@@ -29,9 +29,27 @@ public class DataSourceConfig {
     /**
      * 第二数据源
      */
-    @Bean(name = "secondaryDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.secondary")
+    @Bean(name = "secondDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.second")
     public DataSource secondaryDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    /**
+     * 第三数据源
+     */
+    @Bean(name = "thirdDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.third")
+    public DataSource thirdDataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
+    /**
+     * 第四数据源
+     */
+    @Bean(name = "fourthDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.fourth")
+    public DataSource fourthDataSource() {
         return DataSourceBuilder.create().build();
     }
 }

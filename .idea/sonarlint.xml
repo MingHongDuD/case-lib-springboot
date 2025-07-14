@@ -4,8 +4,8 @@
     <option name="moduleMapping">
       <map>
         <entry key="case-lib-springboot-main" value="untitled" />
-        <entry key="case-lib-springboot-websocket" value="springboot-websocket" />
         <entry key="lib-admin-server" value="untitled" />
+        <entry key="lib-springboot" value="case-lib-springboot" />
       </map>
     </option>
   </component>

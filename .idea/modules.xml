@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/case-lib-springboot.iml" filepath="$PROJECT_DIR$/.idea/case-lib-springboot.iml" />
       <module fileurl="file://$PROJECT_DIR$/case-lib-springboot-websocket/case-lib-springboot-websocket.iml" filepath="$PROJECT_DIR$/case-lib-springboot-websocket/case-lib-springboot-websocket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-admin-server.iml" filepath="$PROJECT_DIR$/lib-admin-server.iml" />
     </modules>
   </component>
 </project>
