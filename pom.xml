@@ -37,6 +37,8 @@
         <!-- maven -->
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <!-- other -->
+        <commons-lang3.version>2.1.5</commons-lang3.version>
     </properties>
 
     <dependencyManagement>
@@ -79,10 +81,17 @@
                 <scope>runtime</scope>
             </dependency>
             <!-- Apache Commons Lang3 -->
+            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.17.0</version> <!-- 检查最新版本 -->
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <!-- Apache Commons Lang3 -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>1.7.0</version>
             </dependency>
 
             <dependency>
