@@ -46,7 +46,7 @@ public class LogAspect {
     // 定义敏感字段列表，防止记录敏感信息
     private static final List<String> SENSITIVE_FIELDS = Arrays.asList("password", "creditCard");
     // 用于非 Web 场景，如批处理的 Correlation Id
-    private static String correlationIdBatch;
+    private static final ThreadLocal<String> batchCorrelationId = new ThreadLocal<>();
 
     /**
      * 根据指定的日志级别，将消息写入日志系统。
@@ -166,38 +166,53 @@ public class LogAspect {
     private String setCorrelationId(MethodSignature signature, Method method) {
         String correlationId = "";
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        // 如果方法在 Controller 类中
-        if (signature.getDeclaringTypeName().contains("Controller")) {
-            // 生成新的 UUID 作为 Correlation ID
-            correlationId = UUID.randomUUID().toString();
-            // 存储到 Web 请求上下文中，作用范围为当前 HTTP 请求
-            if (requestAttributes != null) {
-                requestAttributes.setAttribute(CORRELATION_ID_KEY, correlationId,
-                        RequestAttributes.SCOPE_REQUEST);
+        try {
+            // 如果方法在 Controller 类中
+            if (signature.getDeclaringTypeName().contains("Controller")) {
+                // 生成新的 UUID 作为 Correlation ID
+                correlationId = UUID.randomUUID().toString();
+                // 存储到 Web 请求上下文中，作用范围为当前 HTTP 请求
+                if (requestAttributes != null) {
+                    requestAttributes.setAttribute(CORRELATION_ID_KEY, correlationId,
+                            RequestAttributes.SCOPE_REQUEST);
+                    // 存储到 MDC，供日志框架使用
+                    MDC.put(CORRELATION_ID_KEY, correlationId);
+                }
+            }
+            // 如果在 Web 上下文中
+            else if (RequestContextHolder.getRequestAttributes() != null) {
+                if (requestAttributes != null) {
+                    // 获取已有的 Correlation ID
+                    correlationId = (String) requestAttributes.getAttribute(CORRELATION_ID_KEY,
+                            RequestAttributes.SCOPE_REQUEST);
+                    // 存储到 MDC，供日志框架使用
+                    MDC.put(CORRELATION_ID_KEY, correlationId);
+                }
+            }
+            // 非 Web 上下文，处理事件或批处理
+            else {
+                // 检查方法名是否为事件或批处理
+                if (method.getName().contains("onApplicationEvent") || method.getName().contains("refDataBatchJob")) {
+                    // 为当前线程生成新的 Correlation ID
+                    correlationId = UUID.randomUUID().toString();
+                    batchCorrelationId.set(correlationId);
+                } else {
+                    // 获取当前线程的 Correlation ID
+                    correlationId = batchCorrelationId.get();
+                }
                 // 存储到 MDC，供日志框架使用
-                MDC.put(CORRELATION_ID_KEY, correlationId);
+                if (correlationId != null) {
+                    MDC.put(CORRELATION_ID_KEY, correlationId);
+                }
+            }
+            return correlationId;
+        } finally {
+            // 清理 ThreadLocal 和 MDC，仅在非 Web 上下文（批处理或事件）中执行
+            if (requestAttributes == null && batchCorrelationId.get() != null) {
+                batchCorrelationId.remove();
+                MDC.remove(CORRELATION_ID_KEY);
             }
         }
-        // 如果在 Web 上下文中
-        else if (RequestContextHolder.getRequestAttributes() != null) {
-            if (requestAttributes != null) {
-                // 获取已有的 Correlation ID
-                correlationId = (String) requestAttributes.getAttribute(CORRELATION_ID_KEY,
-                        RequestAttributes.SCOPE_REQUEST);
-                // 存储到 MDC，供日志框架使用
-                MDC.put(CORRELATION_ID_KEY, correlationId);
-            }
-        } else {
-            // 检查方法名是否为事件或批处理
-            if (method.getName().contains("onApplicationEvent") || method.getName().contains("refDataBatchJob")) {
-                correlationIdBatch = UUID.randomUUID().toString();
-            }
-            // 使用批处理的 Correlation ID
-            correlationId = correlationIdBatch;
-            // 存储到 MDC，供日志框架使用
-            MDC.put(CORRELATION_ID_KEY, correlationId);
-        }
-        return correlationId;
     }
 
     /**
