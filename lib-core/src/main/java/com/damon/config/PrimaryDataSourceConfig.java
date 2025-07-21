@@ -2,6 +2,7 @@ package com.damon.config;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,18 +26,14 @@ import java.util.Objects;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(
-        entityManagerFactoryRef = "entityManagerFactoryPrimary",
-        transactionManagerRef = "primaryTransactionManager",
-        basePackages = "com.damon.repository.primary"
-)
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactoryPrimary", transactionManagerRef = "primaryTransactionManager", basePackages = "com.damon.repository.primary")
 public class PrimaryDataSourceConfig {
 
     private final JpaProperties jpaProperties;
     private final DataSource primaryDataSource;
 
-    public PrimaryDataSourceConfig(JpaProperties jpaProperties,
-                                   @Qualifier("primaryDataSource") DataSource primaryDataSource) {
+
+    public PrimaryDataSourceConfig(JpaProperties jpaProperties, @Qualifier("primaryDataSource") DataSource primaryDataSource) {
         this.jpaProperties = jpaProperties;
         this.primaryDataSource = primaryDataSource;
     }
@@ -50,11 +49,17 @@ public class PrimaryDataSourceConfig {
     @Primary
     @Bean(name = "entityManagerFactoryPrimary")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary(EntityManagerFactoryBuilder builder) {
-        return builder.dataSource(primaryDataSource)
-                .properties(jpaProperties.getProperties())
-                .packages("com.damon.entity.primary")
-                .persistenceUnit("primaryUnit")
-                .build();
+        return builder.dataSource(primaryDataSource).properties(getVendorProperties()).packages("com.damon.entity.primary").persistenceUnit("primaryUnit").build();
+    }
+
+    /**
+     * 自定义JPA的基础配置
+     */
+    private Map<String, String> getVendorProperties() {
+        Map<String, String> map = new HashMap<>();
+//        map.put("hibernate.dialect", mySqlDialect);
+        jpaProperties.setProperties(map);
+        return jpaProperties.getProperties();
     }
 
     /**

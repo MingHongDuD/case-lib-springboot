@@ -2,6 +2,7 @@ package com.damon.config;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -32,6 +35,10 @@ public class SecondDataSourceConfig {
     private final JpaProperties jpaProperties;
     private final DataSource secondDataSource;
 
+    // 数据库方言
+//    @Value("${spring.jpa.database.mysql-platform}")
+//    public String mySqlDialect;
+
     public SecondDataSourceConfig(JpaProperties jpaProperties,
                                   @Qualifier("secondDataSource") DataSource secondDataSource) {
         this.jpaProperties = jpaProperties;
@@ -49,10 +56,20 @@ public class SecondDataSourceConfig {
     @Bean(name = "entityManagerFactorySecond")
     public LocalContainerEntityManagerFactoryBean entityManagerFactorySecond(EntityManagerFactoryBuilder builder) {
         return builder.dataSource(secondDataSource)
-                .properties(jpaProperties.getProperties())
+                .properties(getVendorProperties())
                 .packages("com.damon.entity.Second")
                 .persistenceUnit("SecondUnit")
                 .build();
+    }
+
+    /**
+     * 自定义JPA的基础配置
+     */
+    private Map<String, String> getVendorProperties() {
+        Map<String, String> map = new HashMap<>();
+//        map.put("hibernate.dialect", mySqlDialect);
+        jpaProperties.setProperties(map);
+        return jpaProperties.getProperties();
     }
 
     /**

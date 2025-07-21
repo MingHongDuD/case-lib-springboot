@@ -5,4 +5,18 @@
       <sourceFolder url="file://$MODULE_DIR$/lib-core" isTestSource="false" />
     </content>
   </component>
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping>
+          <factory-entry name="entityManagerFactory" value="850449ee-802f-47c0-ac47-1a491c0ab39d" />
+          <factory-entry name="entityManagerFactoryPrimary" value="850449ee-802f-47c0-ac47-1a491c0ab39d" />
+          <factory-entry name="entityManagerFactorySecond" value="850449ee-802f-47c0-ac47-1a491c0ab39d" />
+        </datasource-mapping>
+        <naming-strategy-map />
+      </configuration>
+    </facet>
+  </component>
 </module>

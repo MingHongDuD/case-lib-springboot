@@ -10,6 +10,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="lib-job" />
         <module name="lib-admin-server" />
         <module name="lib-core" />
       </profile>
@@ -32,6 +33,7 @@
       <module name="case-lib-springboot-websocket" options="-parameters" />
       <module name="lib-admin-server" options="-parameters" />
       <module name="lib-core" options="-parameters" />
+      <module name="lib-job" options="-parameters" />
       <module name="lib-springboot" options="" />
       <module name="ww" options="-parameters" />
     </option>

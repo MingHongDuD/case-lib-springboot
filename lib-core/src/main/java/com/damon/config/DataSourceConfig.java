@@ -2,9 +2,11 @@ package com.damon.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 
@@ -51,5 +53,13 @@ public class DataSourceConfig {
     @ConfigurationProperties(prefix = "spring.datasource.fourth")
     public DataSource fourthDataSource() {
         return DataSourceBuilder.create().build();
+    }
+
+    /**
+     * 简化 HTTP 服务器的通信
+     */
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder){
+        return builder.build();
     }
 }

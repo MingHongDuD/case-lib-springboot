@@ -1,5 +1,7 @@
 package com.damon.service;
 
+import com.damon.swagger.UserRegisterRequest;
+import com.damon.util.MailUtil;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,18 @@ import java.util.concurrent.Future;
  */
 @Service
 public class UserService {
+
+    private MailUtil mailUtil;
+
+    /**
+     * 用户注册
+     */
+    public String userRegister(UserRegisterRequest userRegisterRequest) {
+        System.out.println("注册");
+        return "43";
+    }
+
+
 
     @Async
     public void asyncTask() {
@@ -36,7 +50,7 @@ public class UserService {
             e.printStackTrace();
         }
         long endTime = System.currentTimeMillis();
-        System.out.println(Thread.currentThread().getName() + "：Future<String> asyncTask(String s)，耗时：" + (endTime - startTime));
+        System.out.println(Thread.currentThread().getName() + "：Future<String> asyncTask(String s)，耗时：" + (endTime));
         return AsyncResult.forValue(s);
     }
 }

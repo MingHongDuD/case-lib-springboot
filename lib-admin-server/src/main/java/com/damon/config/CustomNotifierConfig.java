@@ -7,7 +7,11 @@ import de.codecentric.boot.admin.server.domain.events.InstanceStatusChangedEvent
 import de.codecentric.boot.admin.server.notify.AbstractStatusChangeNotifier;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-
+/**
+ * admin配置类
+ *
+ * @author damon du/minghongdud
+ */
 @Component
 public class CustomNotifierConfig extends AbstractStatusChangeNotifier {
     public CustomNotifierConfig(InstanceRepository repository) {

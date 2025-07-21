@@ -35,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class LogAspect {
 
-    // 创建 SLF4J Logger 实例，用于记录切面本身的日志
+    // 创建 SLF4J Logger 实例，用于记录本身的日志
     private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
     // 定义相关ID，用于日志追踪
     private static final String CORRELATION_ID_KEY = "CorrelationId";
@@ -46,7 +46,7 @@ public class LogAspect {
     // 定义敏感字段列表，防止记录敏感信息
     private static final List<String> SENSITIVE_FIELDS = Arrays.asList("password", "creditCard");
     // 用于非 Web 场景，如批处理的 Correlation Id
-    private static final ThreadLocal<String> batchCorrelationId = new ThreadLocal<>();
+    private static final ThreadLocal<String> BATCH_CORRELATION_ID = new ThreadLocal<>();
 
     /**
      * 根据指定的日志级别，将消息写入日志系统。
@@ -172,46 +172,22 @@ public class LogAspect {
                 // 生成新的 UUID 作为 Correlation ID
                 correlationId = UUID.randomUUID().toString();
                 // 存储到 Web 请求上下文中，作用范围为当前 HTTP 请求
-                if (requestAttributes != null) {
-                    requestAttributes.setAttribute(CORRELATION_ID_KEY, correlationId,
-                            RequestAttributes.SCOPE_REQUEST);
-                    // 存储到 MDC，供日志框架使用
-                    MDC.put(CORRELATION_ID_KEY, correlationId);
-                }
+                requestAttributes.setAttribute(CORRELATION_ID_KEY, correlationId,
+                        RequestAttributes.SCOPE_REQUEST);
             }
             // 如果在 Web 上下文中
-            else if (RequestContextHolder.getRequestAttributes() != null) {
-                if (requestAttributes != null) {
-                    // 获取已有的 Correlation ID
-                    correlationId = (String) requestAttributes.getAttribute(CORRELATION_ID_KEY,
-                            RequestAttributes.SCOPE_REQUEST);
-                    // 存储到 MDC，供日志框架使用
-                    MDC.put(CORRELATION_ID_KEY, correlationId);
-                }
-            }
-            // 非 Web 上下文，处理事件或批处理
             else {
-                // 检查方法名是否为事件或批处理
-                if (method.getName().contains("onApplicationEvent") || method.getName().contains("refDataBatchJob")) {
-                    // 为当前线程生成新的 Correlation ID
-                    correlationId = UUID.randomUUID().toString();
-                    batchCorrelationId.set(correlationId);
-                } else {
-                    // 获取当前线程的 Correlation ID
-                    correlationId = batchCorrelationId.get();
-                }
-                // 存储到 MDC，供日志框架使用
-                if (correlationId != null) {
-                    MDC.put(CORRELATION_ID_KEY, correlationId);
-                }
+                RequestContextHolder.getRequestAttributes();// 获取已有的 Correlation ID
+                correlationId = (String) requestAttributes.getAttribute(CORRELATION_ID_KEY,
+                        RequestAttributes.SCOPE_REQUEST);
             }
+            // 存储到 MDC，供日志框架使用
+            MDC.put(CORRELATION_ID_KEY, correlationId);
             return correlationId;
         } finally {
             // 清理 ThreadLocal 和 MDC，仅在非 Web 上下文（批处理或事件）中执行
-            if (requestAttributes == null && batchCorrelationId.get() != null) {
-                batchCorrelationId.remove();
-                MDC.remove(CORRELATION_ID_KEY);
-            }
+            BATCH_CORRELATION_ID.remove();
+            MDC.remove(CORRELATION_ID_KEY);
         }
     }
 

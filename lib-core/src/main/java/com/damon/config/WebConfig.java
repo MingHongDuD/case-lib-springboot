@@ -18,10 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     ObjectMapper mapper;
 
-    //    @Value("${cors.allowed_origins}")
-//    private String[] allowedOrigins;
-//    @Value("${cors.allowed_methods}")
-//    private String[] allowedMethods;
+
     @Value("${cors.max_age:3600}")
     private Long maxAge;
 

@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class LibAdminServerApplication {
     public static void main(String[] args) {
-        System.out.println("启动 Spring Boot Admin...");
         SpringApplication.run(LibAdminServerApplication.class);
     }
 }
