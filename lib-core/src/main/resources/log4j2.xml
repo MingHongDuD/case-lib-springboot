@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 配置 Log4j2 的根元素，monitorInterval="10" 表示每 10 秒检查配置文件是否有更新 -->
+<configuration monitorInterval="10">
+    <!-- 定义日志输出目标（Appends），决定日志输出到哪里以及格式 -->
+    <Appenders>
+        <!-- 定义一个名为 FileBeat 的控制台输出器 -->
+        <Console name="FileBeat">
+            <!-- 使用 CxJSONLayout 格式化日志为紧凑的 JSON 格式 -->
+            <CxJSONLayout compact="true"/>
+        </Console>
+        <!-- 定义一个名为 Human 的控制台输出器 -->
+        <Console name="Human">
+            <!-- 使用 PatternLayout 自定义日志格式：%d（日期），%M（方法名），%m（日志消息），%X（MDC 数据），%ex（异常信息），%n（换行） -->
+            <PatternLayout pattern="%d %M %m %X %ex%n"/>
+        </Console>
+        <!-- 定义一个名为 Human2 的控制台输出器 -->
+        <Console name="Human2">
+            <!-- 使用 CxJSONLayout 格式化日志为非紧凑的 JSON 格式（更易读，包含换行和缩进） -->
+            <CxJSONLayout compact="false"/>
+        </Console>
+    </Appenders>
+    <!-- 定义日志记录器（Loggers），控制日志级别和输出方式 -->
+    <Loggers>
+        <!-- 定义一个针对 com.damon 包的 Logger，日志级别通过环境变量 LOG_LEVEL 设置，默认为 INFO；additivity="false" 表示日志不会传播到父 Logger -->
+        <Logger name="com.damon" level="${env:LOG_LEVEL:-INFO}" additivity="false">
+            <!-- 引用环境变量 LOG_APPENDER 指定的输出器，默认为 FileBeat -->
+            <AppenderRef ref="${env:LOG_APPENDER:-FileBeat}"/>
+        </Logger>
+        <!-- 定义根 Logger，适用于未指定具体 Logger 的日志，默认级别为 INFO -->
+        <Root level="INFO">
+            <!-- 根 Logger 的日志输出到 Human 控制台输出器 -->
+            <AppenderRef ref="Human"/>
+        </Root>
+    </Loggers>
+
+</configuration>

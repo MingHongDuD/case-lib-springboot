@@ -1,3 +1,4 @@
+-- 从表，主要存储primary表的数据，实现高可用
 -- 创建订单表，适配 PostgreSQL 语法，遵循最佳实践
 CREATE TABLE postgres.order
 (

@@ -1,3 +1,5 @@
+-- 主表，主要存储客户相关的数据
+
 CREATE TABLE `USER`
 (
     `USER_ID`                     bigint      NOT NULL AUTO_INCREMENT COMMENT '主键',

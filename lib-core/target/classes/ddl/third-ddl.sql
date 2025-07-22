@@ -1,3 +1,4 @@
+-- 主表，主要存储项目的配置
 CREATE TABLE `USER`
 (
     `USER_ID`                     bigint      NOT NULL AUTO_INCREMENT COMMENT '主键',

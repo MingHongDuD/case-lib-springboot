@@ -1,4 +1,5 @@
--- 创建订单表，适配 PostgreSQL 语法，遵循最佳实践
+-- 从表，主要存储third表的备份，实现高可用
+
 CREATE TABLE postgres.order
 (
     order_id         BIGSERIAL PRIMARY KEY,

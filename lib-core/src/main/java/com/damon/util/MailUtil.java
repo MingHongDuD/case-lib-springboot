@@ -2,13 +2,11 @@ package com.damon.util;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,9 +21,6 @@ public class MailUtil {
     public MailUtil(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }
-
-    @Value("${spring.mail.username}")
-    private String from;
 
     /**
      * 发送邮件
@@ -47,7 +42,7 @@ public class MailUtil {
     /**
      * 发送携带附件的邮件
      */
-    public void sendOneAttachmentMailToOne(String[] to, String subject, String content, HashMap<String, InputStreamSource> attachments) throws MessagingException {
+    public void sendOneAttachmentMailToOne(String[] to, String subject, String content, Map<String, InputStreamSource> attachments) throws MessagingException {
         // 创建一个邮件消息
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 
@@ -63,7 +58,7 @@ public class MailUtil {
 
         // 添加附件，指定附件名称，文件的 Input stream 流以及 Content-Type
         for (Map.Entry<String, InputStreamSource> attachementEntry : attachments.entrySet()) {
-            mimeMessageHelper.addAttachment(attachementEntry.getKey(),attachementEntry.getValue());
+            mimeMessageHelper.addAttachment(attachementEntry.getKey(), attachementEntry.getValue());
         }
 
         // 发送
