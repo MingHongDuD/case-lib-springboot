@@ -1,29 +1,33 @@
 package com.damon.config;
 
+import com.damon.config.security.PermissionCheckInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * （过滤器和拦截器的配置类）
+ * Web 配置类，定义拦截器。
  *
- * @author damon
+ * @author damon du/minghongdud
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
-    ObjectMapper mapper;
+    private ObjectMapper mapper;
 
+    /**
+     * 配置 PermissionCheckInterceptor
+     */
+    @Bean
+    PermissionCheckInterceptor permissionCheckInterceptor() {
+        return new PermissionCheckInterceptor();
+    }
 
-    @Value("${cors.max_age:3600}")
-    private Long maxAge;
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("*").maxAge(maxAge).allowedMethods("GET", "POST");
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(permissionCheckInterceptor()).addPathPatterns("/damon/**");
     }
 }

@@ -1,10 +1,12 @@
 package com.damon.controller;
 
-import com.damon.swagger.UserRegisterRequest;
 import com.damon.service.UserService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 用户控制层
@@ -19,7 +21,7 @@ public class UserController {
 
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public UserController(UserService userService,  ApplicationEventPublisher applicationEventPublisher) {
+    public UserController(UserService userService, ApplicationEventPublisher applicationEventPublisher) {
         this.userService = userService;
         this.applicationEventPublisher = applicationEventPublisher;
     }

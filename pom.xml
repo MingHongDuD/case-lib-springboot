@@ -30,6 +30,7 @@
         <druid-spring-boot-starter-version>1.2.25</druid-spring-boot-starter-version>
         <mybatis-plus-boot-starter.version>3.5.12</mybatis-plus-boot-starter.version>
         <mybatis.version>3.5.19</mybatis.version>
+        <mybatis-plus-extension.version>3.5.12</mybatis-plus-extension.version>
         <mysql-connector-j.version>9.3.0</mysql-connector-j.version>
         <postgresql.version>42.7.7</postgresql.version>
         <!-- spring -->
@@ -41,6 +42,9 @@
         <maven.compiler.target>21</maven.compiler.target>
         <!-- other -->
         <commons-lang3.version>3.18.0</commons-lang3.version>
+        <jjwt-api.version>0.12.5</jjwt-api.version>
+        <jjwt-impl.version>0.12.5</jjwt-impl.version>
+        <jjwt-jackson.version>0.12.5</jjwt-jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -102,6 +106,34 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-client</artifactId>
                 <version>${spring-boot-admin-starter-client.version}</version>
+            </dependency>
+            <!-- MyBatis-Plus Extension -->
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-extension -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus-extension.version}</version>
+            </dependency>
+            <!-- JJWT use process to JWT -->
+            <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt-api.version}}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt-impl.version}}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt-jackson.version}}</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
