@@ -20,6 +20,7 @@
         <module>lib-core</module>
         <module>lib-admin-server</module>
         <module>lib-job</module>
+        <module>case-lib-auth</module>
     </modules>
 
     <properties>

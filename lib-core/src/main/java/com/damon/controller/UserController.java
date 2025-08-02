@@ -2,9 +2,6 @@ package com.damon.controller;
 
 import com.damon.service.UserService;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,13 +23,5 @@ public class UserController {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
-    /**
-     * 用户注册
-     */
-    @PostMapping(value = "/registerUser")
-    public String registerUser(@RequestBody @Validated UserRegisterRequest userRegisterRequest) {
-        applicationEventPublisher.publishEvent(userRegisterRequest);
-        return userService.userRegister(userRegisterRequest);
-    }
 
 }

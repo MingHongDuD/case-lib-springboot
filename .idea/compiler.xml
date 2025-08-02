@@ -10,7 +10,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="lib-job" />
+        <module name="case-lib-auth" />
         <module name="lib-admin-server" />
         <module name="lib-core" />
       </profile>
@@ -21,12 +21,14 @@
       <module name="case-lib-springboot-main" target="21" />
       <module name="case-lib-springboot-websocket" target="21" />
       <module name="lib-core (1)" target="21" />
+      <module name="lib-job" target="21" />
       <module name="lib-springboot" target="21" />
       <module name="ww" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="case-lib-auth" options="-parameters" />
       <module name="case-lib-main" options="-parameters" />
       <module name="case-lib-springboot-admin" options="-parameters" />
       <module name="case-lib-springboot-main" options="-parameters" />
